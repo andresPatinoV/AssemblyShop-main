@@ -10,7 +10,7 @@
     <h2>Recuperacion de Contraseña</h2>
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="email" placeholder="ingrese el correo">
+        <input type="email" name="email" placeholder="ingrese el correo">
         <input type="submit" value="Enviar">
     </form>
 </body>

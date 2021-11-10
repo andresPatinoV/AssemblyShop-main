@@ -10,7 +10,7 @@
     <h2>Cambiar Contraseña</h2>
     <form method="POST">
         {% csrf_token %}
-        <input type="text" name="nueva_contrasena" placeholder="ingrese la nueva contraseña">
+        <input type="password" name="nueva_contrasena" placeholder="ingrese la nueva contraseña">
         <input type="submit" value="Enviar">
     </form>
 </body>
