@@ -7,6 +7,9 @@ from django.views.generic.edit import FormView
 from django.contrib.auth import login,logout
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, CreateView,ListView,UpdateView,DeleteView
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 from apps.usuario.models import Usuario
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm
 from apps.usuario.mixins import RootMixin, SesionIniciada
