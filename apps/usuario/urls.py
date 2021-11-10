@@ -13,6 +13,6 @@ urlpatterns = [
     path('eliminar_tecnico/<int:id>/', eliminarTecnico, name = 'eliminar_tecnico'),
     path('recuperar_contrasena/', recuperarContrasena, name = 'recuperar_contrasena'),
     path('confirmacion_contrasena/<int:error>/', ConfirmacionContrasena.as_view(), name = 'confirmacion_contrasena'),
-    path('cambiar_contrasena/<int:token>/', cambiarContrasena, name = 'cambiar_contrasena'),
+    path('cambiar_contrasena/<str:token>/', cambiarContrasena, name = 'cambiar_contrasena'),
 
 ]

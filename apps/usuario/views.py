@@ -14,6 +14,7 @@ from django.conf import settings
 from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm
 from apps.usuario.mixins import RootMixin, SesionIniciada
+from AssemblyShop.functions import generarCodigoToken
 
 
 # Create your views here.
@@ -151,16 +152,18 @@ class ConfirmacionContrasena(TemplateView):
 
 def enviar_email(token):
     template = get_template('usuarios/correo_recuperacion_contrasena.html')
-    content = template.render({'token':token.id})
+    content = template.render({'token':token.codigo})
 
     email = EmailMultiAlternatives(
-        'titlo del correo',
-        'mensaje de descripcion del correo',
+        'Recuperacion de contraseña',
+        'descripcion',
         settings.EMAIL_HOST_USER,
         [token.email]
     )
     email.attach_alternative(content, 'text/html')
     email.send()
+
+
 
 def recuperarContrasena(request):
     if request.method == 'POST':
@@ -170,6 +173,7 @@ def recuperarContrasena(request):
                 fecha_actual = time.time(),
                 fecha_limite = time.time()+300.0,
                 email = email_ingresado,
+                codigo = generarCodigoToken(),
             )
             token.save()
             enviar_email(token)
@@ -182,14 +186,14 @@ def recuperarContrasena(request):
 def cambiarContrasena(request,token):
     if request.method == 'GET':
         fecha = time.time()
-        token = TokenEmail.objects.get(id=token)
+        token = TokenEmail.objects.get(codigo=token)
         if fecha >= token.fecha_limite:
             return render(request, 'usuarios/tiempo_expirado.html')
         else:
             return render(request, 'usuarios/cambiar_contrasena.html', {'token': token})
     if request.method == 'POST':
         nueva_contrasena = request.POST.get('nueva_contrasena')
-        token = TokenEmail.objects.get(id=token)
+        token = TokenEmail.objects.get(codigo=token)
         usuario = Usuario.objects.get(email=token.email)
         usuario.set_password(nueva_contrasena)
         usuario.save()
