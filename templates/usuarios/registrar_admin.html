@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" >
+<head>
+  <meta charset="UTF-8">
+  <title>{% block titulo %}Registro de Admin{% endblock titulo %}</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="{% static 'css/styleforms.css' %}">
+</head>
+<body>
+  <div class="form">
+    <div class="tab-content">
+      <div class="head">
+        <img class="logo" src="{% static 'images/logo.png' %}">
+      </div>
+      <h1>{% block card_title %} Registro de Administrador {% endblock card_title %}</h1> 
+      <form method="POST">
+        {% csrf_token %}
+        <div class="field-wrap">
+            {{ form.email }}
+        </div>
+        <div class="field-wrap">
+          {{ form.cc }}
+        </div>
+        <div class="field-wrap">
+            {{ form.nombres }}
+        </div>
+        <div class="field-wrap">
+            {{ form.apellidos }}
+        </div>
+        <div class="field-wrap">
+            {{ form.password1 }}                
+        </div>
+        <div class="field-wrap">
+            {{ form.password2 }}                
+        </div>
+        <div class="field-wrap">
+            <button class="button button-block" type="submit">REGISTRAR</button>
+        </div>
+      </form>
+    </div>
+  </div> 
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="{% static 'js/forms.js' %}"></script>
+</body>
+</html>

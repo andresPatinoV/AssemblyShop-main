@@ -1,0 +1,38 @@
+{% extends 'usuarios/root/panel_root.html' %}
+{% load static %}
+
+{% block dashboard %}
+    <div class="Mensaje">
+        <h1>TECNICOS DE HARDWARE</h1>
+    </div>
+    <div class="tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>C.C</th>
+                    <th>Email</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tecnico in tecnicos %}
+                <tr>
+                    <td>{{ tecnico.cc }}</td>
+                    <td>{{ tecnico.email }}</td>
+                    <td>{{ tecnico.nombres }}</td>
+                    <td>{{ tecnico.apellidos }}</td>
+                    <td><a href="{% url 'usuarios:eliminar_tecnico' tecnico.id %}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="{% url 'usuarios:registrar_tecnico' %}" class="boton">
+            <i class="icon ion-md-add-circle"></i>
+            <span class="link_name">Registrar Tecnico</span>
+        </a>
+    </div>
+{% endblock dashboard %}

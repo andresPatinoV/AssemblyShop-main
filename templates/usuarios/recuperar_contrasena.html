@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+</head>
+<body>
+    <h2>Recuperacion de Contraseña</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="email" placeholder="ingrese el correo">
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
