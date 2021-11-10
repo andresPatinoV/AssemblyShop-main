@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperacion de contraseña</title>
-</head>
-<body>
-    {% if error %}
-        <h2>Se han enviado las instrucciones de recuperacion de contraseña al correo ingresado</h2> 
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Recuperar Contraseña{% endblock title %}
 
-    {% else %}
-        <h1>Error en la recuperacion de la contraseña</h1>
-        <h2>El correo ingresado no esta registrado en la base de datos</h2>
-    {% endif %}
-</body>
-</html>
+{% block contenido %}
+    <div class="contenido-centrado container-xxl">
+        <div class="formulario-centrado d-flex flex-column justify-content-center align-items-center"> 
+            {% if error %}
+                <p>Se han enviado las instrucciones de recuperacion de contraseña al correo ingresado</p> 
+            {% else %}
+                <h1>Error en la recuperacion de la contraseña</h1>
+                <p>El correo ingresado no esta registrado en la base de datos</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock contenido %}

@@ -7,8 +7,20 @@
     <title>Error</title>
 </head>
 <body>
-    <h1>ERROR</h1>
-    <h2>El tiempo para usar el enlace ha expirado. Por favor vuelva a solicitar las instrucciones</h2>
-    <a href="{% url 'usuarios:recuperar_contrasena' %}">Recuperar Contraseña</a>
+    
 </body>
 </html>
+
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Tiempo expirado{% endblock title %}
+
+{% block contenido %}
+    <div class="contenido-centrado container-xxl">
+        <div class="formulario-centrado d-flex flex-column justify-content-center align-items-center"> 
+            <h1>ERROR</h1>
+            <p>El tiempo para usar el enlace ha expirado. Por favor vuelva a solicitar las instrucciones
+            <a href="{% url 'usuarios:recuperar_contrasena' %}">Aqui</a></p>
+        </div>
+    </div>
+{% endblock contenido %}

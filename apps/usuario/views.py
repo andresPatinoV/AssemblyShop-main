@@ -171,7 +171,7 @@ def recuperarContrasena(request):
         if Usuario.objects.filter(email=email_ingresado):
             token = TokenEmail(
                 fecha_actual = time.time(),
-                fecha_limite = time.time()+300.0,
+                fecha_limite = time.time()+7200.0,
                 email = email_ingresado,
                 codigo = generarCodigoToken(),
             )

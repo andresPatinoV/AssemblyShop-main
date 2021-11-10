@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Contraseña</title>
-</head>
-<body>
-    <h2>Recuperacion de Contraseña</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="ingrese el correo">
-        <input type="submit" value="Enviar">
-    </form>
-</body>
-</html>
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Recuperar Contraseña{% endblock title %}
+
+{% block contenido %}
+<div class="contenido-centrado container-xxl">
+    <div class="formulario-centrado d-flex flex-column justify-content-center align-items-center"> 
+        <h2>Recupera tu cuenta</h2>
+        <p>Ingresa tu correo electronico para buscar tu cuenta y enviar las instrucciones para recuperarla</p>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="email" name="email"" class="form-control" id="exampleFormControlInput1" placeholder="email@example.com">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+</div>
+{% endblock contenido %}
