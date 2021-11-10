@@ -43,3 +43,17 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_root
+
+class TokenEmail(models.Model):
+    id = models.AutoField(primary_key=True)
+    codigo = models.CharField(max_length=100)
+    fecha_actual = models.FloatField()
+    fecha_limite = models.FloatField()
+    email = models.CharField(max_length=254)
+
+    class Meta:
+        verbose_name = 'Token Email'
+        verbose_name_plural = 'Tokens Email'
+
+    def __str__(self):
+        return self.id

@@ -1,5 +1,7 @@
 from django.contrib import admin
-from apps.usuario.models import Usuario
+from apps.usuario.models import Usuario, TokenEmail
 
-admin.site.register(Usuario)
+
 # Register your models here.
+admin.site.register(Usuario)
+admin.site.register(TokenEmail)
