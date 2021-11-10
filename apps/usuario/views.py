@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -10,7 +11,7 @@ from django.views.generic import TemplateView, CreateView,ListView,UpdateView,De
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from apps.usuario.models import Usuario
+from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm
 from apps.usuario.mixins import RootMixin, SesionIniciada
 
@@ -148,15 +149,15 @@ class ConfirmacionContrasena(TemplateView):
     """Clase que renderiza error en caso de no existir el correo ingresado"""
     template_name = 'usuarios/confirmacion_contrasena.html'
 
-def enviar_email(email):
+def enviar_email(token):
     template = get_template('usuarios/correo_recuperacion_contrasena.html')
-    content = template.render({'token':1})
+    content = template.render({'token':token.id})
 
     email = EmailMultiAlternatives(
         'titlo del correo',
         'mensaje de descripcion del correo',
         settings.EMAIL_HOST_USER,
-        [email]
+        [token.email]
     )
     email.attach_alternative(content, 'text/html')
     email.send()
@@ -165,7 +166,13 @@ def recuperarContrasena(request):
     if request.method == 'POST':
         email_ingresado = request.POST.get('email')
         if Usuario.objects.filter(email=email_ingresado):
-            enviar_email(email_ingresado)
+            token = TokenEmail(
+                fecha_actual = time.time(),
+                fecha_limite = time.time()+300.0,
+                email = email_ingresado,
+            )
+            token.save()
+            enviar_email(token)
             return render(request, 'usuarios/confirmacion_contrasena.html', {'error':True})
         else:
             return render(request, 'usuarios/confirmacion_contrasena.html', {'error':False})
@@ -173,10 +180,18 @@ def recuperarContrasena(request):
         return render(request, 'usuarios/recuperar_contrasena.html')
 
 def cambiarContrasena(request,token):
+    if request.method == 'GET':
+        fecha = time.time()
+        token = TokenEmail.objects.get(id=token)
+        if fecha >= token.fecha_limite:
+            return render(request, 'usuarios/tiempo_expirado.html')
+        else:
+            return render(request, 'usuarios/cambiar_contrasena.html', {'token': token})
     if request.method == 'POST':
         nueva_contrasena = request.POST.get('nueva_contrasena')
-        usuario = Usuario.objects.get(email='deibyandresp@hotmail.com')
+        token = TokenEmail.objects.get(id=token)
+        usuario = Usuario.objects.get(email=token.email)
         usuario.set_password(nueva_contrasena)
         usuario.save()
         return redirect('index')
-    return render(request, 'usuarios/cambiar_contrasena.html', {'token': token})
+    

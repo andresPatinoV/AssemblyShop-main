@@ -56,4 +56,4 @@ class TokenEmail(models.Model):
         verbose_name_plural = 'Tokens Email'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
