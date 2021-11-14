@@ -28,7 +28,7 @@
         <div class="panel-derecho">
             <div class="perfil">
                 <h4>{{ user.nombres }}</h4>
-                <h5>{% block rol %} {% endblock rol %}</h5>
+                <h5>{% block rol %}{% endblock rol %}</h5>
             </div>
             <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="logout"></a>
         </div>

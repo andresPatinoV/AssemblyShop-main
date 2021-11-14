@@ -27,11 +27,6 @@ def panelAdministracion(request):
     else:
         return redirect('index')        
 
-
-''''class PanelAdministracionR(TemplateView):
-    if request.user.is_root:
-        template_name = 'usuarios/root/panel_root.html' '''
-
 class Index(TemplateView):
     """Clase que renderiza el index del sistema"""
     template_name = 'index.html'
@@ -59,7 +54,6 @@ class Login(FormView):
 def logoutUsuario(request):
     logout(request)
     return HttpResponseRedirect('/accounts/login/')
-
 
 class RegistrarComprador(SesionIniciada, CreateView):
     model = Usuario
@@ -101,7 +95,6 @@ class RegistrarAdministrador(RootMixin, CreateView):
         else:
             return render(request,self.template_name,{'form':form})
 
-
 class RegistrarTecnico(RootMixin, CreateView):
     model = Usuario
     form_class = AdminForm
@@ -122,7 +115,6 @@ class RegistrarTecnico(RootMixin, CreateView):
             return redirect('usuarios:administracion')
         else:
             return render(request,self.template_name,{'form':form})
-
 
 class ListaAdministradores(RootMixin, ListView):
     model = Usuario
@@ -162,8 +154,6 @@ def enviar_email(token):
     )
     email.attach_alternative(content, 'text/html')
     email.send()
-
-
 
 def recuperarContrasena(request):
     if request.method == 'POST':
