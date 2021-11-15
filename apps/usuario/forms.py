@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from apps.usuario.models import Usuario
+from apps.tienda.models import Producto
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -10,7 +11,6 @@ class LoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
  
-
 class UsuarioForm(forms.ModelForm):
     """ Formulario de Registro de un Usuario en la base de datos
 
@@ -118,4 +118,52 @@ class AdminForm(UsuarioForm):
                     'required': 'required',
                 }                
             )
+        }
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ('nombre','descripcion','precio','cantidad', 'imagen', 'categoria_id')
+        widgets = {
+            'nombre': forms.TextInput(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder': 'Nombre',
+                    'required': 'required',
+                }
+            ),
+            'descripcion': forms.Textarea(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder': 'Descripcion',
+                    'required': 'required',
+                }
+            ),
+            'precio': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Precio',
+                    'required': 'required',
+                }
+            ),
+            'cantidad': forms.NumberInput(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder': 'Cantidad',
+                    'required': 'required',
+                }                
+            ),
+            'imagen': forms.FileInput(
+                attrs = {
+                    'class': 'form-control',
+                    'placeholder': 'Categorias',
+                    'required': 'required',
+                }                
+            ),
+            'categoria_id': forms.Select(
+                attrs = {
+                    'class': 'form-control',
+                    'required': 'required',
+                }                
+            ),
         }

@@ -12,20 +12,25 @@ from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from apps.usuario.models import Usuario, TokenEmail
-from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm
-from apps.usuario.mixins import RootMixin, SesionIniciada
+from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm, ProductoForm
+from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin
 from AssemblyShop.functions import generarCodigoToken
+from apps.tienda.models import Producto
 
 
 # Create your views here.
 
 def panelAdministracion(request):
-    if request.user.is_root:
-        administradores = Usuario.objects.filter(is_administrador=True).count()
-        tecnicos = Usuario.objects.filter(is_tecnico_hardware=True).count()
-        return render(request, 'usuarios/root/panel_root.html', {'administradores':administradores, 'tecnicos':tecnicos}) 
+    if request.user.is_authenticated:
+        if request.user.is_root:
+            administradores = Usuario.objects.filter(is_administrador=True).count()
+            tecnicos = Usuario.objects.filter(is_tecnico_hardware=True).count()
+            return render(request, 'usuarios/root/panel_root.html', {'administradores':administradores, 'tecnicos':tecnicos})
+        if request.user.is_administrador:
+            productos = Producto.objects.all().count()
+            return render(request, 'usuarios/administrador/panel_administrador.html', {'productos':productos})
     else:
-        return redirect('index')        
+        return redirect('login')
 
 class Index(TemplateView):
     """Clase que renderiza el index del sistema"""
@@ -189,3 +194,34 @@ def cambiarContrasena(request,token):
         usuario.save()
         return redirect('index')
     
+class RegistrarProducto(AdministradorMixin, CreateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'usuarios/administrador/registrar_producto.html'
+
+    def post(self,request,*args,**kwargs):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            nuevo_producto = Producto(
+                nombre = form.cleaned_data.get('nombre'),
+                descripcion = form.cleaned_data.get('descripcion'),
+                precio = form.cleaned_data.get('precio'),
+                cantidad = form.cleaned_data.get('cantidad'),
+                imagen = form.cleaned_data.get('imagen'),
+                categoria_id = form.cleaned_data.get('categoria_id'),
+            )
+            nuevo_producto.save()
+            return redirect('usuarios:administracion')
+        else:
+            return render(request,self.template_name,{'form':form})
+
+class ListaProductos(AdministradorMixin, ListView):
+    model = Producto
+    template_name = 'usuarios/administrador/productos.html'
+    context_object_name = 'productos'
+    queryset = Producto.objects.all()
+
+def eliminarProducto(request, id):
+    producto = Producto.objects.get(id = id)
+    producto.delete()
+    return redirect('usuarios:lista_productos')

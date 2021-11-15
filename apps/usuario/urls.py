@@ -15,4 +15,7 @@ urlpatterns = [
     path('confirmacion_contrasena/<int:error>/', ConfirmacionContrasena.as_view(), name = 'confirmacion_contrasena'),
     path('cambiar_contrasena/<str:token>/', cambiarContrasena, name = 'cambiar_contrasena'),
 
+    path('registrar_producto/',RegistrarProducto.as_view(),name = 'registrar_producto'),
+    path('lista_productos/',ListaProductos.as_view(),name = 'lista_productos'),
+    path('eliminar_producto/<int:id>/', eliminarProducto, name = 'eliminar_producto'),
 ]

@@ -12,3 +12,8 @@ class SesionIniciada(object):
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
         
+class AdministradorMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_administrador:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect('index')
