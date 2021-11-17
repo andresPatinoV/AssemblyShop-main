@@ -16,6 +16,7 @@ urlpatterns = [
     path('cambiar_contrasena/<str:token>/', cambiarContrasena, name = 'cambiar_contrasena'),
 
     path('registrar_producto/',RegistrarProducto.as_view(),name = 'registrar_producto'),
+    path('actualizar_producto/<int:pk>/', ActualizarProducto.as_view(),name = 'actualizar_producto'),
     path('lista_productos/',ListaProductos.as_view(),name = 'lista_productos'),
     path('eliminar_producto/<int:id>/', eliminarProducto, name = 'eliminar_producto'),
 ]

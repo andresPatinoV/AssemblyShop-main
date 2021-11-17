@@ -27,14 +27,14 @@
                     <td>{{ producto.categoria_id }}</td>
                     <td>
                         <a href="{% url 'usuarios:eliminar_producto' producto.id %}">Eliminar</a>
-                        <a href="">Editar</a>
+                        <a href="{% url 'usuarios:actualizar_producto' producto.id %}">Editar</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div>
+    <div class="agregar">
         <a href="{% url 'usuarios:registrar_producto' %}" class="boton">
             <i class="icon ion-md-add-circle"></i>
             <span class="link_name">Añadir Producto</span>

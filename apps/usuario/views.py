@@ -225,3 +225,10 @@ def eliminarProducto(request, id):
     producto = Producto.objects.get(id = id)
     producto.delete()
     return redirect('usuarios:lista_productos')
+
+class ActualizarProducto(AdministradorMixin, UpdateView):
+    model = Producto
+    form_class = ProductoForm
+    template_name = 'usuarios/administrador/registrar_producto.html'
+    success_url = reverse_lazy('usuarios:lista_productos')
+

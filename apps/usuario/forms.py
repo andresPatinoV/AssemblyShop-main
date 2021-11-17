@@ -127,42 +127,36 @@ class ProductoForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(
                 attrs = {
-                    'class': 'form-control',
                     'placeholder': 'Nombre',
                     'required': 'required',
                 }
             ),
             'descripcion': forms.Textarea(
                 attrs = {
-                    'class': 'form-control',
                     'placeholder': 'Descripcion',
                     'required': 'required',
                 }
             ),
             'precio': forms.NumberInput(
                 attrs={
-                    'class': 'form-control',
                     'placeholder': 'Precio',
                     'required': 'required',
                 }
             ),
             'cantidad': forms.NumberInput(
                 attrs = {
-                    'class': 'form-control',
                     'placeholder': 'Cantidad',
                     'required': 'required',
                 }                
             ),
             'imagen': forms.FileInput(
                 attrs = {
-                    'class': 'form-control',
-                    'placeholder': 'Categorias',
-                    'required': 'required',
+                    'placeholder': 'Imagen',
                 }                
             ),
             'categoria_id': forms.Select(
                 attrs = {
-                    'class': 'form-control',
+                    'placeholer': 'Categoria',
                     'required': 'required',
                 }                
             ),
