@@ -35,7 +35,10 @@
                 </div>
 
                 <button type="submit" class="mb-3 btn">Iniciar Sesión</button>
-                <a href="{% url 'usuarios:recuperar_contrasena' %}">¿olvidaste tu contraseña?</a>
+                <div class="mb-3">
+                    <a href="{% url 'usuarios:registrar_usuario' %}" class="m-3">Registrarse</a>
+                    <a href="{% url 'usuarios:recuperar_contrasena' %}" class="m-3">¿olvidaste tu contraseña?</a>
+                </div>
             </form>
         </div>
     </div>

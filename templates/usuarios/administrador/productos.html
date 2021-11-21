@@ -14,7 +14,8 @@
                     <th>Precio</th>
                     <th>Cantidad</th>
                     <th>Categoria</th>
-                    <th>Operaciones</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,11 +24,15 @@
                     <td>{{ producto.id }}</td>
                     <td>{{ producto.nombre }}</td>
                     <td>{{ producto.precio }}</td>
-                    <td>{{ producto.cantidad }}</td>
-                    <td>{{ producto.categoria_id }}</td>
                     <td>
-                        <a href="{% url 'usuarios:eliminar_producto' producto.id %}">Eliminar</a>
-                        <a href="{% url 'usuarios:actualizar_producto' producto.id %}">Editar</a>
+                        {{ producto.cantidad }}
+                    </td>
+                    <td>{{ producto.categoria_id }}</td>
+                    <td class="opciones-tabla">
+                        <a href="{% url 'usuarios:actualizar_producto' producto.id %}" class="enlace enlace-edit"><i class='bx bxs-pencil'></i></a>
+                    </td>
+                    <td class="opciones-tabla">
+                        <a href="{% url 'usuarios:eliminar_producto' producto.id %}" class="enlace enlace-delete "><i class='bx bx-x' ></i></a>
                     </td>
                 </tr>
                 {% endfor %}

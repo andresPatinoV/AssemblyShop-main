@@ -18,12 +18,12 @@ from django.conf import settings
 from django.views.static import serve
 from django.urls import path, include, re_path
 from django.contrib.auth.decorators import login_required
-from apps.usuario.views import Index, logoutUsuario, Login, panelAdministracion, IniciandoSesion
+from apps.usuario.views import Index, logoutUsuario, Login, panelAdministracion, IniciandoSesion, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include(('apps.usuario.urls','usuarios'))),
-    path('', Index.as_view(), name = 'index'),
+    path('', index, name = 'index'),
     path('iniciando_sesion', login_required(IniciandoSesion.as_view()), name = 'iniciandoSesion'),
     path('accounts/login/',Login.as_view(), name = 'login'),
     path('logout/',login_required(logoutUsuario),name = 'logout'),

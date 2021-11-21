@@ -63,6 +63,7 @@ header .panel-derecho .perfil{
 header .panel-derecho a{
     text-decoration: none;
     color: #fff;
+    margin: 0 10px;
 }
 
 header .panel-derecho a img{
@@ -222,7 +223,8 @@ div{
     margin: 20px 0;
     overflow:auto;
     width: 800px;
-    height: 45%;
+    height: 550px;
+    border: 1px solid rgb(102, 102, 102);
 }
 
 table{
@@ -230,18 +232,19 @@ table{
     text-align: left;
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #000;
 }
 
 th, td {
     padding:12px;
 }
 
-thead{
+thead tr th { 
     background-color: rgb(34, 21, 92);
     color: #fff;
     font-size: 18px;
-    border-bottom: 5px solid rgb(25, 15, 68);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 tr:nth-child(even){
@@ -250,6 +253,29 @@ tr:nth-child(even){
 
 tr:hover td{
     background-color: rgb(155, 195, 255)
+}
+
+.opciones-tabla{
+    margin: auto;
+    text-align: center;
+}
+
+.enlace{
+    border: none;
+    color: white;
+    padding: 1px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.enlace-edit {
+    background-color: #008CBA;
+}
+
+.enlace-delete {
+    background-color: #f44336;
 }
 
 .agregar{

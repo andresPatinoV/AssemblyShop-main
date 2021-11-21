@@ -15,7 +15,7 @@ from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm, ProductoForm
 from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin
 from AssemblyShop.functions import generarCodigoToken
-from apps.tienda.models import Producto
+from apps.tienda.models import Producto, Categoria
 
 
 # Create your views here.
@@ -219,7 +219,7 @@ class ListaProductos(AdministradorMixin, ListView):
     model = Producto
     template_name = 'usuarios/administrador/productos.html'
     context_object_name = 'productos'
-    queryset = Producto.objects.all()
+    queryset = Producto.objects.all().order_by('categoria_id')
 
 def eliminarProducto(request, id):
     producto = Producto.objects.get(id = id)
@@ -232,3 +232,16 @@ class ActualizarProducto(AdministradorMixin, UpdateView):
     template_name = 'usuarios/administrador/registrar_producto.html'
     success_url = reverse_lazy('usuarios:lista_productos')
 
+def actualizarExistencia(request):
+    if request.method == 'POST':
+        producto = Producto.objects.get(id=id)
+        producto_actualizar = 'cantidad-'+str(id)
+        nueva_cantidad = request.POST.get(producto_actualizar)
+        producto.cantidad = nueva_cantidad
+        producto.save()
+        return redirect('usuarios:lista_productos')
+
+def index(request):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.all()
+    return render(request, 'index.html', {'productos': productos, 'categorias':categorias})
