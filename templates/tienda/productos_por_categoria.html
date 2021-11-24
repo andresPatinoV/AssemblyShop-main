@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Recuperar Contraseña{% endblock title %}
+
+{% block categoria_producto %}
+    {{ categoria }}s {% if request.GET.busqueda %}>> Busqueda: {{ request.GET.busqueda }}{% endif %}
+{% endblock categoria_producto %}

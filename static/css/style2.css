@@ -9,6 +9,10 @@
 
 body{
     background: #dfe0e4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
 .navbar{
@@ -68,8 +72,6 @@ body{
 .card img {
     height: 250px; 
 }
-
-
 
 footer {
     background-color: #1b1a31;

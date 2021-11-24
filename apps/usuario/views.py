@@ -11,6 +11,7 @@ from django.views.generic import TemplateView, CreateView,ListView,UpdateView,De
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.db.models import Q
 from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm, ProductoForm
 from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin
@@ -242,6 +243,13 @@ def actualizarExistencia(request):
         return redirect('usuarios:lista_productos')
 
 def index(request):
+    queryset = request.GET.get('busqueda')
     categorias = Categoria.objects.all()
     productos = Producto.objects.all()
+
+    if queryset:
+        productos = Producto.objects.filter(
+            Q(nombre__icontains=queryset) | 
+            Q(descripcion__icontains=queryset)
+        ).distinct()
     return render(request, 'index.html', {'productos': productos, 'categorias':categorias})

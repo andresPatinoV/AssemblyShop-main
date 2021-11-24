@@ -296,7 +296,9 @@ tr:hover td{
 
 .contenido-centrado {
     width: 600px;
-    margin: 100px auto; 
+    margin: 100px auto;
+    position: relative;
+    top:80px;
 }
 
 .formulario-centrado{
