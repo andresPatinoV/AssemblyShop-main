@@ -33,7 +33,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for categoria in categorias %}
-                            <li><a class="dropdown-item" href="#">{{ categoria.nombre }}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'tienda:productos_por_categoria' categoria.nombre %}">{{ categoria.nombre }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>  
@@ -88,11 +88,9 @@
     
     
     <div class="container">
-        {% if request.GET.busqueda %}
-            <h5>Busqueda: {{ request.GET.busqueda }}</h5>
-        {% else %}
-            <h5>Todos los Productos</h5>
-        {% endif %}
+        <h5>
+            {% block categoria_producto %}Todos los Productos {% if request.GET.busqueda %}>> Busqueda: {{ request.GET.busqueda }}{% endif %}{% endblock categoria_producto %}
+        </h5>
         <div class="container-productos d-flex flex-wrap">
             {% if not productos %}
                 <h5>No se encontraron productos que coincidan con la busqueda.</h5>

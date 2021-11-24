@@ -27,6 +27,7 @@ urlpatterns = [
     path('iniciando_sesion', login_required(IniciandoSesion.as_view()), name = 'iniciandoSesion'),
     path('accounts/login/',Login.as_view(), name = 'login'),
     path('logout/',login_required(logoutUsuario),name = 'logout'),
+    path('',include(('apps.tienda.urls','tienda'))),
 ]
 
 urlpatterns += [
