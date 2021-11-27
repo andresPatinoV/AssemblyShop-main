@@ -4,7 +4,6 @@ from apps.tienda.models import Producto, Categoria
 
 # Create your views here.
 
-
 def getCategoria(categorias, categoria):
     for c in categorias:
         if c.nombre == categoria:
@@ -22,3 +21,9 @@ def productosPorCategoria(request, categoria):
             Q(descripcion__icontains=queryset))
         ).distinct()
     return render(request, 'tienda/productos_por_categoria.html', {'productos': productos, 'categorias':categorias, 'categoria':categoria})
+
+def detallesProducto(request,producto_id):
+    categorias = Categoria.objects.all()
+    producto = Producto.objects.get(id=producto_id)
+    productos_similares = Producto.objects.filter(categoria_id=producto.categoria_id)
+    return render(request, 'tienda/detalles_producto.html', {'producto':producto, 'productos_similares': productos_similares, 'categorias':categorias})

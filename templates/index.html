@@ -26,9 +26,11 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-enlace" href="{% url 'index' %}">Inicio</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -86,9 +88,8 @@
         </button>
     </div>
     
-    
     <div class="container">
-        <h5>
+        <h5 class="titulo-productos">
             {% block categoria_producto %}Todos los Productos {% if request.GET.busqueda %}>> Busqueda: {{ request.GET.busqueda }}{% endif %}{% endblock categoria_producto %}
         </h5>
         <div class="container-productos d-flex flex-wrap">
@@ -96,12 +97,15 @@
                 <h5>No se encontraron productos que coincidan con la busqueda.</h5>
             {% else %}
                 {% for producto in productos %}
-                    <div class="card m-3" style="width: 18rem;">
+                    <div class="card m-3" style="width: 21rem;">
                         <img src="{{ producto.imagen.url }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                        <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">$ {{ producto.precio }}</p>
-                        <a href="#" class="btn btn-primary">Ver mas...</a>
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">$ {{ producto.precio }}</p>
+                            <div class="input-group">
+                                <a href="{% url 'tienda:detalles_producto' producto.id %}" class="btn btn-as me-3">Ver detalle</a>
+                                <a href="#" class="btn btn-primary">Agregar al Carrito</a>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -115,7 +119,7 @@
     {% block footer %}
     <footer>
         <p>
-            © 2021-2021 AssemblyShop. Content is available under these licenses.
+            © 2021-2021 AssemblyShop. 
         </p>
     </footer>
     {% endblock footer %}

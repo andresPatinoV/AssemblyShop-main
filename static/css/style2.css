@@ -28,6 +28,15 @@ body{
     height: 50px;
 }
 
+.navbar-enlace {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-enlace:hover {
+    color: rgb(168, 168, 168);
+}
+
 .search-bar {
     width: 500px;
 }
@@ -45,7 +54,13 @@ body{
 }
 
 .btn-as{
-    background: rgb(48, 35, 105);
+    background: #493b8a;
+    color: #fff;
+}
+
+.btn-as:hover{
+    background: rgb(53, 37, 128);
+    color: #fff;
 }
 
 .carousel {
@@ -69,8 +84,43 @@ body{
     padding: 10px;
 }
 
+.titulo-productos{
+    margin-left: 100px;
+}
+
+.container-productos {
+    justify-content: center;
+    
+}
+
 .card img {
     height: 250px; 
+}
+
+.container-producto{
+    position: relative;
+    justify-content:center;
+    padding: 10px;
+    height: 700px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+
+.img-producto {
+    width: 400px; 
+    height: 400px;
+    margin: 20px 60px ;
+}
+
+.detalles {
+    width: 400px; 
+    height: 400px;
+    margin: 20px 60px ;
+}
+
+.detalles h5{
+    margin: 20px 0;
 }
 
 footer {

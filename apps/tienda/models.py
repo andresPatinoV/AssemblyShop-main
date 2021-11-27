@@ -30,3 +30,6 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def get_precio(self):
+        return self.precio
