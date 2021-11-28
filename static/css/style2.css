@@ -128,5 +128,34 @@ footer {
     color: #fff;
     padding: 40px 24px;
     position: relative;
-    top: 100px;
+    top: 150px;
 }
+
+.ensamble {
+    height: 800px;
+    width: 700px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.ensamble h2{
+    margin-bottom: 30px;
+}
+
+.ensamble .opcionales {
+    margin: 0 0 10px 0;
+}
+
+.ensamble .precio-total {
+    margin: 25px auto;
+}
+
+.lista_productos{
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px
+}
+

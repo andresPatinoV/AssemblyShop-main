@@ -1,4 +1,5 @@
 from django.db import models
+from apps.usuario.models import Usuario
 
 # Create your models here.
 class Categoria(models.Model):
@@ -33,3 +34,17 @@ class Producto(models.Model):
 
     def get_precio(self):
         return self.precio
+
+class Pc(models.Model):
+    id = models.AutoField(primary_key=True)
+    productos = models.ManyToManyField(Producto)
+    comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    precio = models.FloatField('Precio',default=0, blank=False, null=False)
+    fecha_pedido = models.DateField('Fecha Pedido', auto_now_add=True, auto_now =False, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'PC'
+        verbose_name_plural = 'PCs'
+    
+    def __str__(self):
+        return str(self.id)

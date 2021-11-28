@@ -1,0 +1,256 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Ensamblar PC{% endblock title %}
+
+
+
+{% block categoria_producto %}
+{% endblock categoria_producto %}
+
+{% block contenido %}
+<div class="container d-flex">
+    <div class="ensamble">
+        <h2>Ensambla tu PC</h2>
+        <form  method="post">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="cpu" class="col-sm-3 col-form-label">Gabinete *</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="gabinete" id="gabinete" onclick="agregar()" required>
+                        <option value="">Selecciona el Gabinete</option>
+                        {% for gabinete in gabinetes %}
+                            <option value="{{ gabinete.id }}">{{ gabinete.nombre }}  ${{ gabinete.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="cpu" class="col-sm-3 col-form-label">Fuente de Poder *</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="fuente" id="fuente" onclick="agregar()" required>
+                        <option value="">Selecciona la Fuente</option>
+                        {% for fuente in fuentes %}
+                            <option value="{{ fuente.id }}">{{ fuente.nombre }}  ${{ fuente.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="cpu" class="col-sm-3 col-form-label">CPU *</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="cpu" id="cpu" onclick="agregar()" required>
+                        <option value="">Selecciona el CPU</option>
+                        {% for cpu in cpus %}
+                            <option value="{{ cpu.id }}">{{ cpu.nombre }}  ${{ cpu.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="motherboard" class="col-sm-3 col-form-label">Tarjeta Madre *</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="motherboard" id="motherboard" onclick="agregar()" required>
+                        <option value="">Selecciona La Tarjeta Madre</option>
+                        {% for motherboard in motherboards %}
+                            <option value="{{ motherboard.id }}">{{ motherboard.nombre }}  ${{ motherboard.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="ram" class="col-sm-3 col-form-label">Memoria RAM *</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="ram" id="ram" onclick="agregar()" required>
+                        <option value="">Selecciona La Memoria RAM</option>
+                        {% for ram in rams %}
+                            <option value="{{ ram.id }}">{{ ram.nombre }}  ${{ ram.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="ram" class="col-sm-3 col-form-label">Tarjeta de Video*</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="tarjetaVideo" id="tarjetaVideo" onclick="agregar()" required>
+                        <option value="">Selecciona La Tarjeta Video</option>
+                        {% for tarjetaVideo in tarjetasVideo %}
+                            <option value="{{ tarjetaVideo.id }}">{{ tarjetaVideo.nombre }}  ${{ tarjetaVideo.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="ram" class="col-sm-3 col-form-label">Unidad de Almacenamiento*</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="unidadAlmacenamiento" id="unidadAlmacenamiento" onclick="agregar()" required>
+                        <option value="">Selecciona La unidad de Almacenamiento</option>
+                        {% for unidadAlmacenamiento in unidadesAlmacenamiento %}
+                            <option value="{{ unidadAlmacenamiento.id }}">{{ unidadAlmacenamiento.nombre }}  ${{ unidadAlmacenamiento.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <h5 class="opcionales">Opcionales</h5>
+            
+            <div class="mb-3 row">
+                <label for="ram" class="col-sm-3 col-form-label">Monitor</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="monitor" id="monitor" onclick="agregar()">
+                        <option value="">Selecciona el Monitor</option>
+                        {% for monitor in monitores %}
+                            <option value="{{ monitor.id }}">{{ monitor.nombre }}  ${{ monitor.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="ram" class="col-sm-3 col-form-label">Teclado</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="teclado" id="teclado" onclick="agregar()">
+                        <option value="">Selecciona el Teclado</option>
+                        {% for teclado in teclados %}
+                            <option value="{{ teclado.id }}">{{ teclado.nombre }}  ${{ teclado.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="ram" class="col-sm-3 col-form-label">Mouse</label>
+                <div class="col-sm-9">
+                    <select class= "form-select" name="mouse" id="mouse" onclick="agregar()">
+                        <option value="">Selecciona el Mouse</option>
+                        {% for mouse in mouses %}
+                            <option value="{{ mouse.id }}">{{ mouse.nombre }}  ${{ mouse.precio }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <h4 class="precio-total" name="precio_total" id="precio_total">Total: $0</h4>
+            <input class="btn btn-as " type="submit" name="anadir" value="Comprar">
+        </form>
+    </div>
+</div>
+
+<div class="" style="visibility:hidden;position:absolute;top: -1000px;">
+    <h1 id="0">0</h1>   
+    {% for gabinete in gabinetes %}
+    <h1 id="{{ gabinete.id }}">{{ gabinete.precio }}</h1>        
+    {% endfor %}
+    {% for fuente in fuentes %}
+    <h1 id="{{ fuente.id }}">{{ fuente.precio }}</h1>        
+    {% endfor %}
+    {% for cpu in cpus %}
+        <h1 id="{{ cpu.id }}">{{ cpu.precio }}</h1>        
+    {% endfor %}
+    {% for motherboard in motherboards %}
+        <h1 id="{{ motherboard.id }}">{{ motherboard.precio }}</h1>        
+    {% endfor %}
+    {% for ram in rams %}
+        <h1 id="{{ ram.id }}">{{ ram.precio }}</h1>        
+    {% endfor %}
+    {% for tarjetaVideo in tarjetasVideo %}
+    <h1 id="{{ tarjetaVideo.id }}">{{ tarjetaVideo.precio }}</h1>        
+    {% endfor %}
+    {% for unidadAlmacenamiento in unidadesAlmacenamiento %}
+    <h1 id="{{ unidadAlmacenamiento.id }}">{{ unidadAlmacenamiento.precio }}</h1>        
+    {% endfor %}
+    {% for monitor in monitores %}
+        <h1 id="{{ monitor.id }}">{{ monitor.precio }}</h1>        
+    {% endfor %}
+    {% for teclado in teclados %}
+        <h1 id="{{ teclado.id }}">{{ teclado.precio }}</h1>        
+    {% endfor %}
+    {% for mouse in mouses %}
+        <h1 id="{{ mouse.id }}">{{ mouse.precio }}</h1>        
+    {% endfor %}
+</div>
+{% endblock contenido %}
+
+{% block extrajs %}
+    <script>
+        function agregar(){
+            let gabinete = document.getElementById("gabinete").value;
+            let fuente = document.getElementById("fuente").value;
+            let cpu = document.getElementById("cpu").value;
+            let mb = document.getElementById("motherboard").value;
+            let ram = document.getElementById("ram").value;
+            let tarjetaVideo = document.getElementById("tarjetaVideo").value;
+            let unidadAlmacenamiento = document.getElementById("unidadAlmacenamiento").value;
+            let monitor = document.getElementById("monitor").value;
+            let teclado = document.getElementById("teclado").value;
+            let mouse = document.getElementById("mouse").value;
+            
+            let precio_total = document.getElementById("precio_total");
+
+            let gabinete_precio=0, fuente_precio=0, cpu_precio = 0, mb_precio=0, ram_precio=0, 
+                tarjetaVideo_precio=0, unidadAlmacenamiento_precio=0, monitor_precio=0, teclado_precio=0, mouse_precio=0;
+
+            if(gabinete !==""){
+                gabinete_precio = parseInt(document.getElementById(gabinete).innerHTML);
+            }else{
+                gabinete_precio=0;
+            }
+            if(fuente !==""){
+                fuente_precio = parseInt(document.getElementById(fuente).innerHTML);
+            }else{
+                fuente_precio=0;
+            }
+            if(cpu !==""){
+                cpu_precio = parseInt(document.getElementById(cpu).innerHTML);
+            }else{
+                cpu_precio=0;
+            }
+            if(mb !==""){
+                mb_precio = parseInt(document.getElementById(mb).innerHTML);
+            }else{
+                mb_precio=0;
+            }
+            if(ram !==""){
+                ram_precio = parseInt(document.getElementById(ram).innerHTML);
+            }else{
+                ram_precio=0;
+            }
+            if(tarjetaVideo !==""){
+                tarjetaVideo_precio = parseInt(document.getElementById(tarjetaVideo).innerHTML);
+            }else{
+                tarjetaVideo_precio=0;
+            }
+            if(unidadAlmacenamiento !==""){
+                unidadAlmacenamiento_precio = parseInt(document.getElementById(unidadAlmacenamiento).innerHTML);
+            }else{
+                unidadAlmacenamiento_precio=0;
+            }
+            if(monitor !==""){
+                monitor_precio = parseInt(document.getElementById(monitor).innerHTML);
+            }else{
+                monitor_precio=0;
+            }
+            if(teclado !==""){
+                teclado_precio = parseInt(document.getElementById(teclado).innerHTML);
+            }else{
+                teclado_precio=0;
+            }
+            if(mouse !==""){
+                mouse_precio = parseInt(document.getElementById(mouse).innerHTML);
+            }else{
+                mouse_precio=0;
+            }
+            
+            valor_total = cpu_precio + mb_precio + ram_precio + gabinete_precio + fuente_precio
+                        + tarjetaVideo_precio + unidadAlmacenamiento_precio + monitor_precio + teclado_precio + mouse_precio;
+
+            precio_total.innerHTML = "Total: $" + valor_total
+        }
+    </script>
+{% endblock extrajs %}
