@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
-from apps.tienda.models import Producto, Categoria
+from apps.tienda.models import Producto, Categoria, Pedido
 from apps.tienda.forms import PcForm
 # Create your views here.
 
@@ -43,10 +43,47 @@ def ensamblarPc(request):
     fuentes = Producto.objects.filter(categoria_id=10)
     if request.method == 'POST':
         form = request.POST
-        print(form)
+        pedido = Pedido(
+            ensamble = True,
+            comprador = request.user
+        )
+        gabinete = Producto.objects.get(id=form['gabinete'])
+        fuente = Producto.objects.get(id=form['fuente'])
         cpu = Producto.objects.get(id=form['cpu'])
-        print(cpu.precio)
-        print(form['motherboard'])
+        motherboard = Producto.objects.get(id=form['motherboard'])
+        ram = Producto.objects.get(id=form['ram'])
+        tarjetaVideo = Producto.objects.get(id=form['tarjetaVideo'])
+        unidadAlmacenamiento = Producto.objects.get(id=form['unidadAlmacenamiento'])
+        monitor = ""
+        teclado = ""
+        mouse = ""
+        if form['monitor'] != "":
+            monitor = Producto.objects.get(id=form['monitor'])
+            pedido.precio += monitor.precio
+        if form['teclado'] != "":
+            teclado = Producto.objects.get(id=form['teclado'])
+            pedido.precio += teclado.precio
+        if form['mouse'] != "":
+            mouse = Producto.objects.get(id=form['mouse'])
+            pedido.precio += mouse.precio
+
+        pedido.precio += gabinete.precio + fuente.precio + cpu.precio + motherboard.precio + ram.precio + tarjetaVideo.precio + unidadAlmacenamiento.precio
+        pedido.save()
+        pedido.productos.add(
+            gabinete,
+            fuente,
+            cpu,
+            motherboard,
+            ram,
+            tarjetaVideo,
+            unidadAlmacenamiento
+        )
+        if monitor != "":
+            pedido.productos.add(monitor)
+        if teclado != "":
+            pedido.productos.add(teclado)
+        if mouse != "":
+            pedido.productos.add(mouse)
 
     return render(request, 'tienda/ensamblar_pc.html', {
         'categorias':categorias, 

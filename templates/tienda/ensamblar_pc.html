@@ -137,7 +137,11 @@
             </div>
 
             <h4 class="precio-total" name="precio_total" id="precio_total">Total: $0</h4>
-            <input class="btn btn-as " type="submit" name="anadir" value="Comprar">
+            {% if user.is_authenticated %}
+                <input class="btn btn-as " type="submit" name="anadir" value="Comprar">
+            {% else %}
+                <a class="btn btn-as" href="{% url 'login' %}">Comprar</a>
+            {% endif %}  
         </form>
     </div>
 </div>

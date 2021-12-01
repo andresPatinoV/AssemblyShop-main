@@ -1,8 +1,8 @@
 from django import forms
-from apps.tienda.models import Producto, Pc
+from apps.tienda.models import Producto, Pedido
 
 class PcForm(forms.ModelForm):
     class Meta:
-        modelo = Pc
+        modelo = Pedido
 
         fields = ['productos']
