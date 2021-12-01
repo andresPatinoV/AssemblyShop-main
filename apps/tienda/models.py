@@ -39,9 +39,11 @@ class Pedido(models.Model):
     id = models.AutoField(primary_key=True)
     precio = models.FloatField('Precio',default=0, blank=False, null=False)
     ensamble = models.BooleanField(default=False)
+    estado = models.BooleanField(default=False)
     fecha_pedido = models.DateField('Fecha Pedido', auto_now_add=True, auto_now =False, blank=True, null=True)
     productos = models.ManyToManyField(Producto, blank=True, null=True)
     comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
+    
 
     class Meta:
         verbose_name = 'Pedido'

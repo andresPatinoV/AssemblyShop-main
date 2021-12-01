@@ -20,4 +20,7 @@ urlpatterns = [
     path('lista_productos/',ListaProductos.as_view(),name = 'lista_productos'),
     path('eliminar_producto/<int:id>/', eliminarProducto, name = 'eliminar_producto'),
     path('actualizar_existencia/<int:id>/', actualizarExistencia, name = 'actualizar_existencia'),
+
+    path('lista_pedidos/',ListaPedidos.as_view(),name = 'lista_pedidos'),
+    path('detalles_pedido/<int:id>/',detallesPedido,name = 'detalles_pedido'),
 ]

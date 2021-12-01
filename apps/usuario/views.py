@@ -16,7 +16,7 @@ from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm, ProductoForm
 from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin
 from AssemblyShop.functions import generarCodigoToken
-from apps.tienda.models import Producto, Categoria
+from apps.tienda.models import Producto, Categoria, Pedido
 
 
 # Create your views here.
@@ -253,3 +253,15 @@ def index(request):
             Q(descripcion__icontains=queryset)
         ).distinct()
     return render(request, 'index.html', {'productos': productos, 'categorias':categorias})
+
+class ListaPedidos(AdministradorMixin, ListView):
+    model = Pedido
+    template_name = 'usuarios/administrador/pedidos_ensamble.html'
+    context_object_name = 'pedidos'
+    queryset = Pedido.objects.filter(ensamble=True).order_by('fecha_pedido')
+
+def detallesPedido(request, id):
+    pedido = Pedido.objects.get(id=id)
+    componentes = pedido.productos.all()
+    print(componentes)
+    return render(request, 'usuarios/administrador/pedidos_ensamble.html')

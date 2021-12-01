@@ -222,7 +222,7 @@ div{
 .tabla {
     margin: 20px 0;
     overflow:auto;
-    width: 800px;
+    width: 1000px;
     height: 550px;
     border: 1px solid rgb(102, 102, 102);
 }
