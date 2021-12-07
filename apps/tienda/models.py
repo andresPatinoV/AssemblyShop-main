@@ -41,7 +41,7 @@ class Pedido(models.Model):
     ensamble = models.BooleanField(default=False)
     estado = models.BooleanField(default=False)
     fecha_pedido = models.DateField('Fecha Pedido', auto_now_add=True, auto_now =False, blank=True, null=True)
-    productos = models.ManyToManyField(Producto, blank=True, null=True)
+    productos = models.ManyToManyField(Producto)
     comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
     
 

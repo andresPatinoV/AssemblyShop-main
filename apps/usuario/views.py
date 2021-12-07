@@ -76,7 +76,7 @@ class RegistrarComprador(SesionIniciada, CreateView):
             )
             nuevo_usuario.set_password(form.cleaned_data.get('password1'))
             nuevo_usuario.save()
-            return redirect('index')
+            return redirect('login')
         else:
             return render(request,self.template_name,{'form':form})
 

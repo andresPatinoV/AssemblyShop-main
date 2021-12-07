@@ -13,7 +13,7 @@
                     <th>Email</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
-                    <th>Operaciones</th>
+                    <th style="text-align:center">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                     <td>{{ administrador.email }}</td>
                     <td>{{ administrador.nombres }}</td>
                     <td>{{ administrador.apellidos }}</td>
-                    <td><a href="{% url 'usuarios:eliminar_administrador' administrador.id %}">Eliminar</a></td>
+                    <td class="opciones-tabla"><a href="{% url 'usuarios:eliminar_administrador' administrador.id %}" class="enlace enlace-delete"><i class='bx bx-x' ></i></td>
                 </tr>
                 {% endfor %}
             </tbody>

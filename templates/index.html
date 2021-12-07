@@ -46,8 +46,9 @@
                         <button class="btn btn-primary" type="submit">Buscar</button>
                     </form>
                 </ul>
-                <div class="panel-derecho">
+                <div class="perfil">
                     {% if user.is_authenticated %}
+                        <h4>{{ user.nombres }}</h4>
                         <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="logout"></a>
                     {% else %}
                         <a href="{% url 'usuarios:registrar_usuario' %}">Registrarse</a>

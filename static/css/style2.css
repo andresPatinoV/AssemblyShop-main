@@ -40,14 +40,27 @@ body{
 .search-bar {
     width: 500px;
 }
-
-.panel-derecho a {
+.perfil{
     color: #fff;
     text-decoration: none;
     margin: 0 5px;
+    display: flex;
 }
 
-.panel-derecho a img {
+.perfil h4{
+    font-size: 20px;
+
+}
+
+.perfil a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+    font-size: 18px;
+    
+}
+
+.perfil a img {
     width: 35px;
     height: 25px;
     padding: 0 5px;
