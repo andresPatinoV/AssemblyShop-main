@@ -113,7 +113,6 @@ def carrito(request):
     productos_json = json.dumps(list(productos.values('id', 'nombre', 'precio', 'categoria_id')))
     if request.method == 'POST':
         form = request.POST
-        print(form)
         diccionario = dict(form)
         pedido = Pedido(
             ensamble = False,
@@ -125,11 +124,8 @@ def carrito(request):
             if producto != 'csrfmiddlewaretoken':
                 if producto != 'pagar':
                     lista = diccionario[producto]
-                    print(lista[0])
                     id = int(lista[0])
-                    print(id)
                     productoagregar = Producto.objects.get(id = id)
-                    print(productoagregar)
                     pedido.precio += productoagregar.precio
                     pedido.save()
                     pedido.productos.add(productoagregar)

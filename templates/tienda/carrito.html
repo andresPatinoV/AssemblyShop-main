@@ -8,7 +8,6 @@
 
 {% block contenido %}
 <div class="container">
-    
     <div class="container-carrito">
         <div class="productos-carrito">
             <h2>Carrito de Compras</h2>
@@ -17,8 +16,6 @@
             </ul>
             
         </div>
-        
-        
         <div class="footer-carrito">
             <div class="vaciar-carrito">
                 <input id="vaciar-carrito" value="Vaciar Carrito" class="btn btn-danger" onclick="vaciarCarrito()">
@@ -38,8 +35,6 @@
         </div>
     </div>
 </div>
-
-
 <script>
     let productos_json = '{{productos_json|safe}}';
 </script>
