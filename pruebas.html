@@ -9,23 +9,19 @@
 </head>
 <body>
     
-    <select name="select" id="select" onclick="agregar()">
-        <option value="1"> 1</option>
-        <option value="2" selected> 2</option>
-        <option value="3"> 3</option>
-    </select>
+    <input type="text" id="nombre">
 
-    <input type="button" name="" value="Añadir" onclick="agregar()">
+    <input type="button" name="" value="Añadir" onclick="agregarLocalStorage()">
 
-    <select name="select2" id="select2" onclick="agregar()">
-        <option value="4">4</option>
-        <option value="5" selected>5</option>
-        <option value="6">6</option>
-    </select>
 
-    <input type="button" name="" value="Añadir" onclick="agregar()">
-
-    <h1 id="mensaje">Precio</h1>
+    <input id="2" type="button" value="da"  onclick="agregar(this)" >
+    <a href="pruebas2.html">Click aqui para ver el local Storage</a>
     <script src="main.js"></script>
+
+    <script>
+        function agregar(e){
+            console.log(e.id)
+        }
+    </script>
 </body>
 </html>

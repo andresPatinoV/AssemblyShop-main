@@ -38,7 +38,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['nombres', 'apellidos']
 
     def __str__(self):
-        return f'{self.nombres} {self.apellidos}'
+        return f'{self.nombres}'
 
     @property
     def is_staff(self):

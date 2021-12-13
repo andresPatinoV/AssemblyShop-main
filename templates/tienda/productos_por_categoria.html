@@ -4,5 +4,5 @@
 {% block title %}{{ categoria }}{% endblock title %}
 
 {% block categoria_producto %}
-    {{ categoria }}s {% if request.GET.busqueda %}>> Busqueda: {{ request.GET.busqueda }}{% endif %}
+    Categoria: {{ categoria }} {% if request.GET.busqueda %}>> Busqueda: {{ request.GET.busqueda }}{% endif %}
 {% endblock categoria_producto %}

@@ -1,4 +1,5 @@
 import time
+import json
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -14,9 +15,9 @@ from django.conf import settings
 from django.db.models import Q
 from apps.usuario.models import Usuario, TokenEmail
 from apps.usuario.forms import LoginForm, UsuarioForm, AdminForm, ProductoForm
-from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin
+from apps.usuario.mixins import RootMixin, SesionIniciada, AdministradorMixin, TecnicoMixin
 from AssemblyShop.functions import generarCodigoToken
-from apps.tienda.models import Producto, Categoria, Pedido
+from apps.tienda.models import *
 
 
 # Create your views here.
@@ -30,6 +31,9 @@ def panelAdministracion(request):
         if request.user.is_administrador:
             productos = Producto.objects.all().count()
             return render(request, 'usuarios/administrador/panel_administrador.html', {'productos':productos})
+        if request.user.is_tecnico_hardware:
+            pedidos = Pedido.objects.all().count()
+            return render(request, 'usuarios/tecnico/panel_tecnico.html', {'pedidos':pedidos})
     else:
         return redirect('login')
 
@@ -246,13 +250,14 @@ def index(request):
     queryset = request.GET.get('busqueda')
     categorias = Categoria.objects.all()
     productos = Producto.objects.all()
+    productos_json = json.dumps(list(productos.values('id', 'nombre', 'precio', 'categoria_id')))
 
     if queryset:
         productos = Producto.objects.filter(
             Q(nombre__icontains=queryset) | 
             Q(descripcion__icontains=queryset)
         ).distinct()
-    return render(request, 'index.html', {'productos': productos, 'categorias':categorias})
+    return render(request, 'index.html', {'productos': productos, 'categorias':categorias, 'productos_json': productos_json})
 
 class ListaPedidos(AdministradorMixin, ListView):
     model = Pedido
@@ -265,3 +270,29 @@ def detallesPedido(request, id):
     componentes = pedido.productos.all()
     print(componentes)
     return render(request, 'usuarios/administrador/pedidos_ensamble.html')
+
+
+class ListaSolicitudes(AdministradorMixin, ListView):
+    model = Solicitud
+    template_name = 'usuarios/administrador/solicitudes.html'
+    context_object_name = 'solicitudes'
+    queryset = Solicitud.objects.all().order_by('fecha_solicitud')
+
+
+class ListaPedidosEnsamble(TecnicoMixin, ListView):
+    model = Pedido
+    template_name = 'usuarios/tecnico/pedidos_ensamble.html'
+    context_object_name = 'pedidos'
+    queryset = Pedido.objects.filter(ensamble=True, estado=False).order_by('fecha_pedido')
+
+def actualizarEstadoPedido(request, id):
+    pedido = Pedido.objects.get(id = id)
+    pedido.estado = True
+    pedido.save()
+    return redirect('usuarios:lista_pedidos_ensamble')
+
+class ListaPedidosCompletados(TecnicoMixin, ListView):
+    model = Pedido
+    template_name = 'usuarios/tecnico/pedidos_completados.html'
+    context_object_name = 'pedidos'
+    queryset = Pedido.objects.filter(ensamble=True, estado=True).order_by('fecha_pedido')

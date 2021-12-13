@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .views import *
 
 urlpatterns = [
+
     path('administracion/', panelAdministracion, name = 'administracion'),
     path('registrar_comprador/',RegistrarComprador.as_view(),name = 'registrar_usuario'),
     path('registrar_admin/',RegistrarAdministrador.as_view(),name = 'registrar_admin'),
@@ -23,4 +24,10 @@ urlpatterns = [
 
     path('lista_pedidos/',ListaPedidos.as_view(),name = 'lista_pedidos'),
     path('detalles_pedido/<int:id>/',detallesPedido,name = 'detalles_pedido'),
+
+    path('lista_solicitudes/',ListaSolicitudes.as_view(),name = 'lista_solicitudes'),
+
+    path('lista_pedidos_ensamble/',ListaPedidosEnsamble.as_view(),name = 'lista_pedidos_ensamble'),
+    path('actualizar_pedido/<int:id>/', actualizarEstadoPedido, name = 'actualizar_pedido'),
+    path('lista_pedidos_completados/',ListaPedidosCompletados.as_view(),name = 'lista_pedidos_completados'),
 ]

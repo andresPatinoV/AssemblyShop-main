@@ -17,3 +17,9 @@ class AdministradorMixin(object):
         if request.user.is_administrador:
             return super().dispatch(request, *args, **kwargs)
         return redirect('index')
+
+class TecnicoMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_tecnico_hardware:
+            return super().dispatch(request, *args, **kwargs)
+        return redirect('index')

@@ -8,3 +8,17 @@ function agregar(){
 
     mensaje.innerHTML
 }
+
+function agregarLocalStorage(){
+    let nombre = document.getElementById("nombre").value;
+
+    localStorage.setItem("nombre", nombre)
+}
+
+function obtenerLocalStorage(){
+    let mensaje = document.getElementById("mensaje");
+
+    nombre = localStorage.getItem("nombre");
+
+    mensaje.innerHTML = nombre
+}

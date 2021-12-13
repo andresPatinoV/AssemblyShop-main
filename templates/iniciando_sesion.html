@@ -10,6 +10,9 @@
     {% if request.user.is_administrador %}
         <meta http-equiv="Refresh" content="0.1;url=http://127.0.0.1:8000/administracion/">
     {% endif %}
+    {% if request.user.is_tecnico_hardware %}
+        <meta http-equiv="Refresh" content="0.1;url=http://127.0.0.1:8000/administracion/">
+    {% endif %}
     <meta http-equiv="Refresh" content="0.2;url=http://127.0.0.1:8000">
     <title>Iniciando Sesion</title>
 </head>

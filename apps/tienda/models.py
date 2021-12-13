@@ -44,7 +44,6 @@ class Pedido(models.Model):
     productos = models.ManyToManyField(Producto)
     comprador = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True, null=True)
     
-
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
@@ -53,3 +52,16 @@ class Pedido(models.Model):
         return str(self.id)
 
 
+class Solicitud(models.Model):
+    id = models.AutoField(primary_key=True)
+    producto = models.TextField('Producto', blank=True, null=True)
+    fecha_solicitud = models.DateField('Fecha Pedido', auto_now_add=True, auto_now =False, blank=True, null=True)
+    solicitante = models.CharField('Nombre', max_length=100, blank=True, null=True)
+    correo = models.EmailField('Correo Electrónico', max_length=254, blank=True, null=True)
+    
+    class Meta:
+        verbose_name = 'Solicitud'
+        verbose_name_plural = 'Solicitudes'
+    
+    def __str__(self):
+        return str(self.id)

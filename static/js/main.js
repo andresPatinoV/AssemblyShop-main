@@ -44,3 +44,4 @@ function usuariosToggle(e) {
         $submenu.classList.replace('close', 'open');
     }
 }
+

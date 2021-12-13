@@ -1,6 +1,8 @@
+import json
 from django.shortcuts import render
 from django.db.models import Q
-from apps.tienda.models import Producto, Categoria, Pedido
+from apps.tienda.models import Producto, Categoria, Pedido, Solicitud
+from apps.usuario.models import Usuario
 from apps.tienda.forms import PcForm
 # Create your views here.
 
@@ -26,7 +28,11 @@ def detallesProducto(request,producto_id):
     categorias = Categoria.objects.all()
     producto = Producto.objects.get(id=producto_id)
     productos_similares = Producto.objects.filter(categoria_id=producto.categoria_id)
-    return render(request, 'tienda/detalles_producto.html', {'producto':producto, 'productos_similares': productos_similares, 'categorias':categorias})
+    return render(request, 'tienda/detalles_producto.html', {
+        'producto':producto, 
+        'productos_similares': productos_similares, 
+        'categorias':categorias
+        })
 
 def ensamblarPc(request):
     categorias = Categoria.objects.all()
@@ -100,3 +106,29 @@ def ensamblarPc(request):
         'fuentes':fuentes, 
     })
         
+
+def carrito(request):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.all()
+    productos_json = json.dumps(list(productos.values('id', 'nombre', 'precio', 'categoria_id')))
+    return render(request, 'tienda/carrito.html', {'categorias': categorias, 'productos_json': productos_json} )
+
+
+def solicitud(request):
+    categorias = Categoria.objects.all()
+    if request.method == 'POST':
+        form = request.POST
+        solicitud = Solicitud()
+        if request.user.is_anonymous:
+            solicitud.producto = form['producto-solicitar']
+            solicitud.solicitante = form['nombre_noregistrado']
+            solicitud.correo = form['correo']
+        else:
+            solicitud.producto = form['producto-solicitar']
+            nombre = request.user
+            solicitud.solicitante = nombre
+            solicitud.correo = Usuario.objects.get(nombres = request.user).email
+        solicitud.save()
+        return render(request, 'tienda/solicitud_confirmacion.html', {'categorias':categorias})
+
+    return render(request, 'tienda/solicitud.html', {'categorias':categorias})
