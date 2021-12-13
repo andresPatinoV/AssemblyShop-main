@@ -53,6 +53,7 @@
                     {% if user.is_authenticated %}
                         <a id="car-btn" class="car" href="{% url 'tienda:carrito' %}">
                             <i class='bx bx-cart bx-md'></i>
+                            <h6 class="cant-productos" id="cant-productos"></h6>
                         </a>
                         <h4>{{ user.nombres }}</h4>
                         <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="logout"></a>

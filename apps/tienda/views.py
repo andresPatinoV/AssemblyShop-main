@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Q
 from apps.tienda.models import Producto, Categoria, Pedido, Solicitud
 from apps.usuario.models import Usuario
@@ -111,6 +111,30 @@ def carrito(request):
     categorias = Categoria.objects.all()
     productos = Producto.objects.all()
     productos_json = json.dumps(list(productos.values('id', 'nombre', 'precio', 'categoria_id')))
+    if request.method == 'POST':
+        form = request.POST
+        print(form)
+        diccionario = dict(form)
+        pedido = Pedido(
+            ensamble = False,
+            comprador = request.user,
+            precio = 0
+        )
+        pedido.save()
+        for producto in diccionario:
+            if producto != 'csrfmiddlewaretoken':
+                if producto != 'pagar':
+                    lista = diccionario[producto]
+                    print(lista[0])
+                    id = int(lista[0])
+                    print(id)
+                    productoagregar = Producto.objects.get(id = id)
+                    print(productoagregar)
+                    pedido.precio += productoagregar.precio
+                    pedido.save()
+                    pedido.productos.add(productoagregar)
+
+        return redirect('index')
     return render(request, 'tienda/carrito.html', {'categorias': categorias, 'productos_json': productos_json} )
 
 
